@@ -13,14 +13,14 @@ ui <- fluidPage(
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #1e1e1e; /* Dark background for body */
-        color: #dcdcdc; /* Light text color for readability */
+        color: #3c8dbc; /* Light text color for readability */
         margin: 0;
       }
       .welcome-container {
         text-align: center;
         padding: 50px;
         background: linear-gradient(to bottom, #2f3640, #1e272e);
-        color: #ffffff;
+        color: #3c8dbc;
         border-radius: 10px;
         margin: 20px;
       }
@@ -67,7 +67,7 @@ ui <- fluidPage(
       .sidebar {
         background-color: #2f3640;
         color: #ffffff;
-        height:900px;
+        height:1200px;
       }
       .sidebar .nav-pills > li > a {
         color: #ffffff;
@@ -88,7 +88,7 @@ ui <- fluidPage(
       /* Dark theme for About section */
       .about-container {
         background-color: #2f3640;
-        color: #ffffff;
+        color: #3c8dbc;
         padding: 40px;
         border-radius: 10px;
       }
@@ -119,7 +119,7 @@ server <- function(input, output, session) {
   user_logged_in <- reactiveVal(FALSE)
   
   # Load the dataset from CSV
-  uber_data <- read.csv('/Users/souravpoonia/Desktop/Code/r programming lab/data1.csv')
+  uber_data <- read.csv("C:/Users/soura/Downloads/uberdataset/data1.csv")
   
   # Ensure 'pickup_datetime' is properly converted to POSIXct
   uber_data$pickup_datetime <- as.POSIXct(uber_data$pickup_datetime, format = "%Y-%m-%d %H:%M:%S")
@@ -254,12 +254,43 @@ server <- function(input, output, session) {
                     p("This chart helps to identify the peak times for Uber trips, which can be critical for fare prediction and supply-demand optimization.")
             ),
             tabItem(tabName = "about", 
-                    
                     div(class = "about-section", 
                         h3("About the Project"),
-                        p("This dashboard is built to analyze Uber trips."),
-                        p("Features include data filters, charts, and predictive models."),
-                        p("Developer: Sourabh Prajapat and Sourav Poonia")
+                        p("Welcome to the Uber Data Analysis Dashboard! This interactive dashboard allows you to explore and analyze Uber trip data in various ways."),
+                        p("We provide a deep dive into Uber's ride statistics, identifying trends, peak hours, geographic analysis, and more."),
+                        
+                        # Adding Image or Logo
+                        img(src = "path_to_uber_logo.png", alt = "Uber Logo", height = "100px"),
+                        
+                        # Description of the features
+                        p("Key Features Include:"),
+                        tags$ul(
+                          tags$li("Data filters for exploring various aspects like trip duration, fare, and location."),
+                          tags$li("Interactive charts for analyzing trends and patterns."),
+                          tags$li("Predictive models to forecast future trip data based on historical trends."),
+                          tags$li("Geospatial analysis to explore Uber rides in different locations.")
+                        ),
+                        
+                        # Developer Information
+                        p("Developers: Sourabh Prajapat and Sourav Poonia"),
+                        
+                        # Additional interactive information (tooltips or explanations)
+                        p(tags$i("Want to learn more about the models used? Hover over the features on the dashboard for detailed explanations.")),
+                        
+                        # Timeline or Process
+                        h4("Project Timeline & Methodology"),
+                        p("The project followed a rigorous process to extract insights from Uber trip data."),
+                        tags$ol(
+                          tags$li("Data Collection: Gathering Uber trip data from various sources."),
+                          tags$li("Data Cleaning: Preprocessing and handling missing values."),
+                          tags$li("Exploratory Data Analysis (EDA): Visualizing key statistics and trends."),
+                          tags$li("Predictive Modelling: Implementing machine learning models to forecast trip patterns."),
+                          tags$li("Results: Presenting the findings through interactive visualizations.")
+                        ),
+                        
+                        # Link to GitHub or Further Reading
+                        p("For more details, check out the project repository: ", 
+                          tags$a(href='https://github.com/SouravPoonia/uber-data-analysis', "GitHub Repository"))
                     )
             )
           )
@@ -267,6 +298,8 @@ server <- function(input, output, session) {
       )
     }
   })
+  
+  
   
   # Handle redirect to the main dashboard on 'Start Exploring' button click
   observeEvent(input$go_to_dashboard, {
